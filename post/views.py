@@ -10,10 +10,15 @@ def home(request):
 
 def upload_recipes(request):
     if request.method == 'GET':
-        form = RecipeForm()
-        return render(request, 'upload.html', {'form':form})
+        # form = RecipeForm()
+        timecate = Timecate.objects.all()
+        diffcate = Diffcate.objects.all()
+        return render(request, 'upload.html', {'timecost':timecate, 'difficulty':diffcate})
     elif request.method == 'POST':
         form = RecipeForm(request.POST, request.FILES)
+        # timecost = request.POST.get('timecost', '')
+        # difficulty = request.POST.get('difficulty', '')
+
         if form.is_valid():
             form.save()
             return HttpResponse('success')
